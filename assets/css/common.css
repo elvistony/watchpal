@@ -1,0 +1,18 @@
+.toast-success{
+  background: #abebc6 ;
+  color: black;
+}
+
+.toast-warning{
+  background: #fdebd0 ;
+  color: black;
+}
+
+.toast-danger{
+  background: #f5b7b1 ;
+  color: black;
+}
+
+.enabled{
+  color: #30ae67 !important;
+}

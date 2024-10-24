@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WatchPal Remote | Elvis Tony</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/remote.css">
+    <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/common.css">
+
+</head>
+<body class="p-2">
+    <div class="container pt-4">
+        <h2>Watch Pal - Remote</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="row px-3">
+                    <div class="form-check form-switch col">
+                        <input class="form-check-input" type="checkbox"  checked role="switch" id="mirror-context">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Mirror Context Load</label>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" id="load-context">Load Context</button>
+                    </div>
+                    <div class="col">
+                        <div class="btn-group mb-3" id="peer-reload">
+                            <button class="btn btn-primary" ><i class="fa fa-refresh" ></i></button>
+                            <button class="btn btn-primary"><span class="badge badge-warning" id="peer-count">0</span> Peers</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    
+                    <div class="card-body">
+                        <h6>Video Module</h6>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Video Stream URL" id="stream-url">
+                            <button class="btn btn-warning" id="url-test" data-toggle="modal" data-target="#previewModal"><i class="fa fa-circle-check" ></i></button>
+                            <button class="btn btn-primary" id="url-apply"><i class="fa fa-check" ></i></button>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Stream Title" id="video-title">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input class="form-control" placeholder="Stream Description" id="video-desc">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" id="timestops" value="10" placeholder="Number of Timestops">
+                        </div>
+                        <button class="btn btn-success" id="send-pack-button">Send Watch Pack</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Subtitles Module</h6>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="SRT URL" id="srt-url">
+                            <button class="btn btn-warning"><i class="fa fa-download" id="srt-download"></i></button>
+                        </div>
+                        <textarea class="form-control" rows="2" placeholder="Paste SRT Content Here" id="srt-content"></textarea>
+                        <button class="btn btn-success mt-2" id="srt-apply">Apply Subs</button>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h6>Playback Module</h6>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div >
+                                    <img src="../assets/img/video-icon.png"  class="img-thumbnail img-fluid" alt="">
+                                </div>  
+                            </div>
+                            <div class="col-md-10 p-2">
+                                <h5 id="playback-title">All Creatures Great and Small</h5>
+                                <h6 id="playback-desc">Season 5 Episode 5</h6>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <video src="../assets/video/wait.mp4"  controls class="w-100 video-js vjs-default-skin" height="200" muted id="player"></video>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-secondary" id="seek-rewind"><i class="fa fa-undo"></i> <sub>10s</sub></button>
+                            <button class="btn btn-dark" id="play-pause"><i class="fa fa-play" id="play-pause-icon"></i></button>
+                            <button class="btn btn-secondary" id="seek-forward"><i class="fa fa-redo"></i> <sub>10s</sub></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+
+    <script src="../assets/js/subtitles.js"></script>
+    <script src="../assets/js/admin.js"></script>
+</body>
+</html>

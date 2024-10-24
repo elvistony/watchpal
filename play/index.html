@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WatchPal | Elvis Tony</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../assets/css/flix.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+
+</head>
+<body>
+    <div class="start-container">
+        <button class="start-button" id="ready-button">Ready</button>
+    </div>
+    <video src="../assets/video/wait.mp4" loop="true" class="video-background" id="video-player" >   </video>
+
+    <div class="controls-overlay" id="controlsOverlay">
+        <div class="pos-abs video-title">
+            <h5 id="video-desc">Waiting for Admin</h5>
+            <h1 id="video-title">Watch Pal</h1>
+        </div>
+        <button class="rewind pos-abs control-button" id="seek-rewind"><i class="fas fa-undo"></i><sub> 10s</sup></button>
+        <button class="forward pos-abs control-button" id="seek-forward"><i class="fas fa-redo"></i><sub>10s</sub></button>
+        <div class="pos-abs room-specs">
+            <h4 >Audience: <span class="buddy-count" id="viewer-count">OFFLINE</span></h4>
+            <h4 ><small>Code:</small> <span id="room-code" class="room-code"></span></h4>
+            <h6 ><small>ID:</small> <span id="client-id" class="room-code"></span></h6>
+            <h6>Version 0.0.1</h6>
+        </div>
+        <div class="controls">
+            <div class="left-controls">
+                <button id="play-pause" class="control-button">
+                    <i class="fas fa-play play-pause" id="playPauseIcon"></i>
+                </button>
+            </div>
+            <div class="middle-controls hide">
+                <div class="timestamps" id="startTime">00:00:00</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="timestamps" id="endTime">00:00:00</div>
+            </div>
+            
+            <div class="right-controls">
+                <!-- <button class="control-button control-button-mini" is="google-cast-button"  id="volume-control">
+                    <i class="fas fa-qrcode"></i>
+                </button> -->
+                <button class="control-button control-button-mini enabled"  id="timestops-enabled">
+                    <i class="fas fa-clock"></i>
+                    <i class="fas fa-pause-circle"></i>
+                </button>
+                <button class="control-button control-button-mini"  id="reload-package">
+                    <i class="fas fa-refresh"></i>
+                </button>
+                <button class="control-button control-button-mini" id="sync-others">
+                    <i class="fas fa-clock" ></i>
+                </button>
+                <button id="fullscreenBtn" class="control-button">
+                    <i class="fas fa-expand fullscreen" id="fullscreenIcon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+<script src="../assets/js/flixplayer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.all.min.js"></script>
+<!-- <script src="../bundle.js"></script> -->
+<script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+<script src="../assets/js/subtitles.js"></script>
+<script src="../assets/js/watchpal.js"></script>
+
+
+</body>
+</html>
+
+

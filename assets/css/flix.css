@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.hide{
+    display: none !important;
+}
+
+/* Full-screen background video */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Overlay for controls */
+.controls-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    padding: 20px;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-controls {
+    display: flex;
+    align-items: center;
+}
+
+.play-pause {
+    font-size: 30px;
+    
+    cursor: pointer;
+}
+
+#videoplayer > video{
+    width: 100%;
+    height: 100%;
+}
+
+.h-300px{
+    height: 300px;
+}
+
+.progress-bar-container {
+    position: relative;
+    margin-top: 5px;
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    
+}
+
+.middle-controls{
+    width: 50%;
+    display: flex;
+}
+
+.timestamps{
+    padding: 0px 20px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: white;
+}
+
+.volume-control, .settings-control {
+    font-size: 20px;
+    cursor: pointer;
+    
+}
+
+.right-controls {
+    display: flex;
+    align-items: center;
+}
+
+.fullscreen {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Rewind and Forward buttons */
+.pos-abs {
+    position: absolute;
+    top: 20px;
+    font-size: 24px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 15px;
+}
+
+.rewind {
+    left: 20px;
+}
+
+.forward {
+    right: 20px;
+}
+
+.video-title{
+    left: 80px;
+    background:none;
+    text-shadow: 1px 1px black;
+}
+
+.room-specs{
+    right: 90px;
+    background:none;
+    text-shadow: 1px 1px black;
+    text-align: right;
+}
+
+.buddy-count{
+    padding: 1px 10px;
+    background: white;
+    color: black;
+    text-shadow: none;
+    border-radius: 20px;
+}
+
+.room-code{
+    font-variant-caps: petite-caps;
+}
+/* Hide controls */
+.hide-controls {
+    opacity: 0;
+}
+
+.control-button{
+    padding: 10px;
+    color: white;
+    background: black;
+    border:none;
+    outline: 0.5px solid gray;
+    border-radius: 50%;
+    width: 60px;
+    cursor: pointer;
+    height: 60px;
+    margin-right: 5px;
+    transition: 0.5s ease;
+}
+
+.vjs-tech{
+    width: 100%;
+    height: 100%;
+}
+
+.vjs-control-text{
+    display: none;
+}
+
+.vjs-modal-dialog-content{
+    font-size: small !important;
+}
+
+.control-button:focus-within{
+    color: black;
+    background: white;
+}
+
+.control-button > *{
+    outline: none;
+}
+
+.control-button-mini{
+    width: 50px !important;
+    height: 50px !important;
+    cursor: pointer;
+}
+
+.start-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.start-button {
+    padding: 20px 30px;
+    font-size: 18px;
+    font-variant-caps: all-small-caps;
+    opacity: 0.8;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+}
