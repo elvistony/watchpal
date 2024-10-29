@@ -55,7 +55,7 @@
                             <input class="form-control" placeholder="Stream Description" id="video-desc">
                         </div>
                         <div class="input-group mb-3">
-                            <input type="number" class="form-control" id="timestops" value="10" placeholder="Number of Timestops">
+                            <input type="number" class="form-control" id="timestops" value="1" placeholder="Number of Timestops">
                         </div>
                         <button class="btn btn-success" id="send-pack-button">Send Watch Pack</button>
                     </div>
@@ -92,7 +92,10 @@
                         </div>
                         <div class="d-flex justify-content-between mt-3">
                             <button class="btn btn-secondary" id="seek-rewind"><i class="fa fa-undo"></i> <sub>10s</sub></button>
+                            
                             <button class="btn btn-dark" id="play-pause"><i class="fa fa-play" id="play-pause-icon"></i></button>
+                            <button class="btn btn-secondary" id="sync-others"><i class="fa fa-clock"></i></button>
+                            <!-- <button class="btn btn-secondary" id="seek-rewind"><i class="fa fa-undo"></i></button> -->
                             <button class="btn btn-secondary" id="seek-forward"><i class="fa fa-redo"></i> <sub>10s</sub></button>
                         </div>
                     </div>

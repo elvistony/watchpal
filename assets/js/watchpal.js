@@ -76,7 +76,9 @@ function loadContext(context){
     }
     myContext.context = context;
     console.log(context)
-    ToastMessage('success','Loaded Context')    
+    ToastMessage('success','Loaded Watch Pack')    
+    PlayerUI.player.removeAttribute('loop');
+    PlayerUI.player.removeAttribute('autoplay');
 }
 
 function averagePositionPolls(timestamps){
@@ -108,9 +110,8 @@ function ToastMessage(type,message){
 
 
 function loadSrt(content){
-    let VTTcontent = applySubs(content,PlayerUI.video);
-    PlayerUI.player.removeAttribute('loop');
-    PlayerUI.player.removeAttribute('autoplay');
+    // applySubs(content,PlayerUI.video);
+    applySubs(content,PlayerUI.player)
     // PlayerUI.player.load();
 }
 
@@ -153,11 +154,15 @@ function SocketHandlers(){
         switch (msg.type) {
             case 'pause':
                 PlayerUI.video.pause();
-                ToastMessage('success','Someone pressed Pause')  
+                if(from != selfId){
+                    ToastMessage('success','Someone pressed Pause')  
+                }
                 break;
             case 'play':
                 PlayerUI.video.play();
-                ToastMessage('success','Someone pressed Play')  
+                if(from != selfId){
+                    ToastMessage('success','Someone pressed Play')  
+                }
                 break;
             case 'position-poll':
                 if(from==selfId){break;}
@@ -166,14 +171,20 @@ function SocketHandlers(){
             case 'seek':
                 PlayerUI.video.currentTime = msg.payload;
                 PlayerUI.video.pause();
-                ToastMessage('success','Someone seeked the stream')  
+                if(from != selfId){
+                    ToastMessage('warning','Someone Seeked the stream')  
+                }else{
+                    ToastMessage('success','You seeked the stream')
+                }
                 break;
             case 'src':
                 loadSrc(msg.payload)
+                ToastMessage('success','Loaded Alternate Source')
                 break;
             
             case 'srt':
                 loadSrt(msg.payload)
+                ToastMessage('success','Loaded Subtitles')
                 break;
         
             default:
@@ -210,6 +221,8 @@ function SocketHandlers(){
     });
 
 }
+
+
 
 
 function loadSrc(src){
@@ -260,8 +273,14 @@ function VideoUiHandlers(){
     })
 
     PlayerUI.syncOthers.addEventListener('click',()=>{
+        ToastMessage('success','Syncing other viewers to your timestamp')
         inform('seek',data=PlayerUI.video.currentTime);
     })
+
+    PlayerUI.reloadPack.addEventListener('click',()=>{
+        document.location.reload();
+    })
+
 
     PlayerUI.seeking.rewind.addEventListener('click',()=>{
         inform('seek',data=PlayerUI.video.currentTime-10);
@@ -273,18 +292,20 @@ function VideoUiHandlers(){
 
     PlayerUI.timestop.addEventListener('click',()=>{
         if(PlayerUI.timestop.classList.contains('enabled')){
+            ToastMessage('warning','Scheduled Intermissions disabled')
             PlayerUI.timestop.classList.remove('enabled')
         }else{
             PlayerUI.timestop.classList.add('enabled')
+            ToastMessage('success','Scheduled Intermissions enabled')
         }
     })
 
     PlayerUI.player.on('timeupdate', () => {
-        // if(!PlayerUI.timestop.classList.contains('enabled')){return}
+        if(!PlayerUI.timestop.classList.contains('enabled')){return}
         if(myContext.timestops){
             let timestamps = myContext.timestops;
             timestamps.forEach(timestamp => {
-                if (Math.abs(PlayerUI.player.currentTime() - timestamp) < 0.1) { // Adjust the tolerance as needed
+                if (Math.abs(PlayerUI.player.currentTime() - timestamp) < 0.1 && PlayerUI.player.currentTime()!=0) { // Adjust the tolerance as needed
                     PlayerUI.player.pause()
                     ToastMessage('warning','Scheduled Stop Encountered')
                 }

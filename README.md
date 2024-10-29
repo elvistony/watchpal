@@ -1,2 +1,2 @@
 # watchpal
-Binge Bud Alternative to use client server - Apparently peer2peer is but too complex!
+Watch Pal (Sister Project of Binge Bud) - Apparently peer2peer is but too complex!

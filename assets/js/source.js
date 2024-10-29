@@ -9,9 +9,15 @@ document.getElementById('dailymotionSource').addEventListener('click',()=>{
         let js = await JSON.parse(y);
         console.log(js);
         document.getElementById('VideoURL').value = 'https://corsproxy.io/?'+ js['qualities']['auto'][0]['url'];
-      }
+    }
 })
 
+
+
+
+function downloadDailySubs(){
+
+}
 
 function openVideoInNewTab(url) {
     // Create a new window for the video

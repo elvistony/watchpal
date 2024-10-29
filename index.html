@@ -1,22 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Socket.IO Chat Room</title>
-</head>
-<body>
-  <h1>Join a Room</h1>
-  <input id="roomInput" placeholder="Enter room ID">
-  <button onclick="joinRoom()">Join Room</button>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Watch Pal | Watch Together | Elvis Tony</title>
+        <meta name="description" content="Watch videos and streams online with friends and family built with socket io!">
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Birthstone&display=swap" rel="stylesheet">
+        <link href="landing/css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand text-warning birthstone-regular" href="#page-top">Watch Pal</a>
+                <small>elvistony.dev</small>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="https://github.com/elvistony">Github</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://elvistony.dev">Elvis Tony</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <h1 class="mx-auto my-0 text-warning birthstone-regular">Watch Pal</h1>
+                        <small class="text-warning">v0.6.5</small>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">A free and open source Watch Together Solution!</h2>
+                        <h6 class="text-white-50 mx-auto mt-2 mb-5">Built with Socket IO Networking</h6>
+                        <a class="btn btn-warning" href="#host">Host Your Theatre!</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- About-->
+        <section class="about-section text-center" id="host">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="text-white mb-4">Host your Theatre</h2>
+                        <p class="text-white-50">
+                            Click the button to Host your private Theatre!
+                        </p>
+                        <button class="btn btn-warning" id="create-room"><i class="fa fa-tv"></i> Create a Screen</button>
+                        <div class="mt-4" id="linkSection" style="display: none;">
+                          <!-- <div class="form-group mb-2">
+                            <input class="form-control mt-2" type="text" name="" readonly placeholder="Click the button to create a new Room" >
+                          </div> -->
+                          <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Click 'Create a Screen' to generate a link" id="link-url" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <button class="input-group-text btn btn-info" id="copy-clipboard">Copy</button>
+                            </div>
+                          </div>
+                          <a target="_blank" class="btn button btn-warning mb-2" id="link-admin" href="#"><i class="fa fa-user"></i> Open Admin Panel</a>
+                          <a  target="_blank"  class="btn button btn-success" id="link-theatre" href="#"><i class="fa fa-tv"></i> Open Theatre</a>
+                          <!-- <button class="btn btn-info button" is="google-cast-button">Cast</button> -->
+                        </div>
+                    </div>
+                </div>
+                <img class="img-fluid" src="landing/assets/img/ipad.png" alt="..." />
+            </div>
+        </section>
+        
+        
+        <!-- Contact-->
+        <section class="contact-section bg-black">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fab fa-github  text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Github</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">github.elvistony.dev</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Email</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">watchpal[at]elvistony.dev</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Other Projects</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">projects.elvistony.dev</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social d-flex justify-content-center">
+                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">elvistony.dev 2024 - Landing by Startbootstrap</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+          var createBtn = document.getElementById('create-room');
+          const baseURL = 'https://elvistony.dev/watchpal/'
+          createBtn.addEventListener('click',()=>{
+            var roomId = Math.random().toString(36).slice(2);
+            document.getElementById('linkSection').style.display='block';
+            document.getElementById('link-url').value = baseURL+"play/#/"+ roomId;
+        
+            document.getElementById('link-theatre').setAttribute('href',baseURL+"play/#/"+roomId);
+            document.getElementById('link-admin').setAttribute('href',baseURL+"remote/#/"+roomId);
+          });
 
-  <h2>Chat</h2>
-  <div id="messages"></div>
-  <input id="messageInput" placeholder="Enter message">
-  <button onclick="sendMessage()">Send</button>
-
-  <!-- <script src="/socket.io/socket.io.js"></script> -->
-  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
-  <script src="client.js"></script>
-</body>
+          document.getElementById('copy-clipboard').addEventListener('click',()=>{
+              var copyText = document.getElementById("link-url");
+              copyText.select();
+              copyText.setSelectionRange(0, 99999); // For mobile devices
+              navigator.clipboard.writeText(copyText.value);
+              alert("Copied the text: " + copyText.value);
+          })
+        </script>
+    </body>
 </html>

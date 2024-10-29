@@ -23,6 +23,7 @@ var remoteUI = {
     },
     'subs':{
         'srtURL':document.querySelector('#srt-url'),
+        'srtDownload':document.querySelector('#srt-download'),
         'srtContent':document.querySelector('#srt-content'),
         'srtApply':document.querySelector('#srt-apply')
     },
@@ -32,6 +33,7 @@ var remoteUI = {
         'play-pause':document.querySelector('#play-pause'),
         'play-pause-icon':document.querySelector('#play-pause-icon'),
         'player':document.querySelector('#player'),
+        'syncOthers':document.querySelector('#sync-others'),
         'seek':{
             'rewind':document.querySelector('#seek-rewind'),
             'forward':document.querySelector('#seek-forward')
@@ -101,14 +103,13 @@ socket.on('message',(data)=>{
             break;
         case 'src':
             loadSrc(msg.payload)
-            break;
-        
-        case 'srt':
-            let VTTcontent = applySubs(msg.payload);
-            applySubs(VTTcontent)
             remoteUI.player.removeAttribute('loop');
             remoteUI.player.removeAttribute('autoplay');
             remoteUI.player.load();
+            break;
+        
+        case 'srt':
+            applySubs(msg.payload,remoteUI.player);
             break;
     
         default:
@@ -144,14 +145,14 @@ function generateTimestamps(videoDuration, numTimestamps) {
     for (let i = 0; i < numTimestamps; i++) {
       const timestamp = i * interval;
       timestamps.push(timestamp);
-      readableTimestamps.push(new Date(timestamp * 1000).toISOString().slice(11, 19))
+      try{readableTimestamps.push(new Date(timestamp * 1000).toISOString().slice(11, 19))}catch{}
     }
     console.log(readableTimestamps)
     return timestamps;
   }
 
 function loadSrt(content){
-    let VTTcontent = applySubs(content,remoteUI.playback.player);
+    applySubs(content,remoteUI.player);
     // applySubs(VTTcontent)
     remoteUI.player.removeAttribute('loop');
     remoteUI.player.removeAttribute('autoplay');
@@ -168,12 +169,57 @@ function inform(state,data=''){
 
 
 remoteUI.playback["play-pause"].addEventListener('click',()=>{
+    
     if(remoteUI.playback.player.paused||remoteUI.playback.player.ended){
         inform('play')
+        remoteUI.playback["play-pause-icon"].classList.remove('fa-play')
+        remoteUI.playback["play-pause-icon"].classList.add('fa-pause')
+        
     }else{
         inform('pause')
+        remoteUI.playback["play-pause-icon"].classList.remove('fa-pause')
+        remoteUI.playback["play-pause-icon"].classList.add('fa-play')
+        
     }
 })
+
+
+remoteUI.playback.seek.rewind.addEventListener('click',()=>{
+    inform('seek',remoteUI.playback.player.currentTime-10)
+    remoteUI.playback.player.currentTime=remoteUI.playback.player.currentTime-10
+    remoteUI.playback.player.pause()
+})
+
+remoteUI.playback.seek.forward.addEventListener('click',()=>{
+    inform('seek',remoteUI.playback.player.currentTime+10)
+    remoteUI.playback.player.currentTime=remoteUI.playback.player.currentTime+10
+    remoteUI.playback.player.pause()
+})
+
+
+remoteUI.playback.syncOthers.addEventListener('click',()=>{
+    inform('seek',remoteUI.playback.player.currentTime)
+    // remoteUI.playback.player.currentTime=remoteUI.playback.player.currentTime+10
+    remoteUI.playback.player.pause()
+})
+
+
+
+
+
+function downloadFile(url, textarea) {
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        textarea.value = text;
+      })
+      .catch(error => {
+        console.error('Error fetching file:', error);
+        // Handle errors, e.g., display an error message to the user
+      });
+}
+
+
 
 function loadSrc(src){
     remoteUI.player.src({
@@ -185,15 +231,40 @@ function loadSrc(src){
 }
 
 
+function dailymotionAPI(url,srtURLOutputElement){
+    var dailymotionVideo = url;
+    var dailyID = dailymotionVideo.split('dailymotion.com/video/')[1]
+    const dailymotionapi = "https://corsproxy.io/?https://www.dailymotion.com/player/metadata/video/<VIDEOID>?embedder="
+    getText(dailymotionapi.replace('<VIDEOID>',dailyID));
+    async function getText(file) {
+        let x = await fetch(file);
+        let y = await x.text();
+        let js = await JSON.parse(y);
+        console.log(js);
+        try{
+            let srtData = js['subtitles']['data']
+            let srtLabel = Object.keys(srtData)[0]
+            srtURLOutputElement.value = document.getElementById('VideoURL').value = 'https://corsproxy.io/?'+ srtData[srtLabel]['urls'][0];
+        }catch{
+
+        }
+    }
+}
+
 // Button Handlers
 
 function buttonHandlers(){
 
 remoteUI.video.urlApply.addEventListener('click',()=>{inform('src',remoteUI.video.streamURL.value)})
-remoteUI.video.urlTest.addEventListener('click',()=>{inform('src',remoteUI.video.streamURL.value)})
+remoteUI.video.urlTest.addEventListener('click',()=>{
+    let win = window.open('#','_blank')
+    let vid = win.createElement('video')
+    vid.src = remoteUI.video.streamURL.value;
+    win.document.body.appendChild(vid);
+})
 
 remoteUI.context.load.addEventListener('click',()=>{inform('getContext','')})
-remoteUI.context.load.addEventListener('click',()=>{inform('srt',remoteUI.subs.srtContent.value)})
+remoteUI.subs.srtApply.addEventListener('click',()=>{inform('srt',remoteUI.subs.srtContent.value)})
 
 remoteUI.video.apply.addEventListener('click',()=>{
     context = {
@@ -232,16 +303,22 @@ remoteUI.playback.player.addEventListener('timeupdate', () => {
     }
 });
 
+
+
 remoteUI.playback.player.addEventListener('loadeddata',()=>{
     myContext.timestops = generateTimestamps(remoteUI.playback.player.duration,myContext.context.timestops)
     // console.log(myContext.timestops)
 })
 
+remoteUI.peers.reload.addEventListener('click',()=>{socket.emit('peers',{from:selfId,room:roomId})})
 
+remoteUI.subs.srtDownload.addEventListener('click',()=>{
+    let url = remoteUI.subs.srtURL.value
+    downloadFile(url,remoteUI.subs.srtContent)
+})
 
 }
 
-remoteUI.peers.reload.addEventListener('click',()=>{socket.emit('peers',{from:selfId,room:roomId})})
 
 // document.querySelector('#apply').addEventListener('click',()=>{
 //     inform('src',document.querySelector('#url').value)

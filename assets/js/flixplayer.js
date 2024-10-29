@@ -76,6 +76,14 @@ video.addEventListener('pause', ()=>{
     playPauseIcon.classList.remove('fa-pause');
 });
 
+// Reset auto-hide timer when video is paused
+video.addEventListener('canplay', ()=>{
+    showControls(); 
+    playPauseIcon.classList.add('fa-play');
+    playPauseIcon.classList.remove('fa-pause');
+    progressBarUpdate()
+});
+
 //// Rewind 10 seconds
 // rewindBtn.addEventListener('click', () => {
 //     video.pause()
@@ -114,6 +122,10 @@ document.querySelector('.start-button').addEventListener('click',()=>{
 
 video.addEventListener('timeupdate', () => {
     // Get the video duration in seconds
+    progressBarUpdate()
+});
+
+function progressBarUpdate(){
     const videoDuration = video.duration;
     // Calculate the current progress
     const progress = (video.currentTime / videoDuration) * 100;
@@ -130,4 +142,4 @@ video.addEventListener('timeupdate', () => {
         const endTime = new Date(videoDuration * 1000);
         endTimeElement.textContent = endTime.toISOString().substr(11, 8);
     }
-});
+}

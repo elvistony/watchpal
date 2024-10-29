@@ -1,32 +1,72 @@
 
-function applySubs(VTTcontent,player){
-    const track = document.createElement('track');
+// function applySubs(VTTcontent,player){
+//     const track = document.createElement('track');
+//     document.querySelectorAll('track[kind="captions"]').forEach((trk)=>{
+//       player.removeChild(trk);
+//     })
+//     // Set the track's kind, label, and src attributes
+//     track.kind = 'captions';
+//     track.label = 'English';
+//     track.src = 'data:text/vtt;charset=utf-8,' + encodeURIComponent(srtToVtt(VTTcontent));
+//     // console.log('Encoded:',VTTcontent)
+//     track.default = true;
+//     track.mode='showing';
+//     player.appendChild(track);
+// }
+
+function applySubs(SRTContent,videojsPlayer){
     document.querySelectorAll('track[kind="captions"]').forEach((trk)=>{
       player.removeChild(trk);
     })
-    // Set the track's kind, label, and src attributes
-    track.kind = 'captions';
-    track.label = 'English';
-    track.src = 'data:text/vtt;charset=utf-8,' + encodeURIComponent(VTTcontent);
-    track.default = true;
-    player.appendChild(track);
+    videojsPlayer.removeRemoteTextTrack(videojsPlayer.textTracks()[0]) 
+    videojsPlayer.addRemoteTextTrack({
+        kind: "captions",
+        label: "English",
+        srclang: "en",
+        src: 'data:text/vtt;charset=utf-8,' + encodeURIComponent(srtToVtt(SRTContent)),
+        showing:true,
+        default: true,
+    })
 }
 
+// function srtToVtt(data) {
+//     var srt = data.replace(/\r+/g, '');
+//     srt = srt.replace(/^\s+|\s+$/g, '');
+//     var cuelist = srt.split('\n\n');
+//     var result = "";
+//     if (cuelist.length > 0) {
+//       result += "WEBVTT\n\n";
+//       for (var i = 0; i < cuelist.length; i=i+1) {
+//         result += convertSrtCue(cuelist[i]);
+//       }
+//     }
+    
+//     return result;
+// }
 
-function srtToVtt(data) {
-    var srt = data.replace(/\r+/g, '');
-    srt = srt.replace(/^\s+|\s+$/g, '');
-    var cuelist = srt.split('\n\n');
-    var result = "";
-    if (cuelist.length > 0) {
-      result += "WEBVTT\n\n";
-      for (var i = 0; i < cuelist.length; i=i+1) {
-        result += convertSrtCue(cuelist[i]);
-      }
-    }
+function srtToVtt(srtString) {
+    const lines = srtString.split('\n');
+    let vttString = 'WEBVTT\n\n';
   
-    return result;
-}
+    let currentCue = '';
+    lines.forEach(line => {
+      if (line.trim() === '') {
+        // End of a cue
+        vttString += currentCue + '\n';
+        currentCue = '';
+      } else if (line.match(/^\d+$/)) {
+        // Skip the line number
+      } else if (line.match(/^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}$/)){
+        // Timestamp
+        currentCue += line.replaceAll(',','.') + '\n';
+      }else{
+        // text
+        currentCue += line + '\n';
+      }
+    });
+  
+    return vttString;
+  }
 
 function convertSrtCue(caption) {
     var cue = "";
