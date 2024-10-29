@@ -1,0 +1,8 @@
+{
+  "name": "Watch Pal (Watch Together)",
+  "theme_color": "#9302be",
+  "background_color": "#3a213d",
+  "short_name": "Watch Pal",
+  "id": "watchpal-lvztony",
+  "description": "A Watch Together solution that is opensource and works on Socket IO!"
+}
