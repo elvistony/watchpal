@@ -58,6 +58,11 @@
                     <button type="button" class="btn btn-lg btn-primary" id="join-btn" tabindex="7">Join Theatre <i class="fa fa-video"></i></button>
                 </div>
             </div>
+            <div class="row mt-5">
+                <div class="col-12 d-flex justify-content-center">
+                    <button type="button" class="btn btn-lg btn-secondary" id="remote-btn" tabindex="7">Open Remote <i class="fa fa-user"></i></button>
+                </div>
+            </div>
             <div class="row mt-2">
                 <div class="col-12 d-flex justify-content-center">
                     <a href="../">Host your Own Theatre</a>
@@ -115,6 +120,20 @@
             });
             const baseURL = 'https://elvistony.dev/watchpal/'
             let join_url = baseURL+"play/#/"+number
+            document.querySelector('#join-btn').innerHTML = 'Joining . . .'
+
+            setTimeout(()=>{
+                document.location.replace(join_url)
+            },2000)
+        })
+
+        document.querySelector('#remote-btn').addEventListener('click',()=>{
+            let number = ''
+            document.querySelectorAll('input[type="text"]').forEach(numElement => {
+                number += numElement.value;
+            });
+            const baseURL = 'https://elvistony.dev/watchpal/'
+            let join_url = baseURL+"remote/#/"+number
             document.querySelector('#join-btn').innerHTML = 'Joining . . .'
 
             setTimeout(()=>{
