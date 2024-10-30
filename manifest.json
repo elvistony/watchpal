@@ -49,5 +49,9 @@
       "url": "https://elvistony.dev/watchpal/join/",
       "description": "Watch Pal | Join the theatre with your friends and family anywhere around the world!"
     }
-  ]
+  ],
+  "display": "standalone",
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "any"
 }
