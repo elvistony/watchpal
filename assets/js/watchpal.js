@@ -254,6 +254,8 @@ function generateTimestamps(videoDuration, numTimestamps) {
   }
 
 
+
+
 function VideoUiHandlers(){
     
     PlayerUI.playpause.addEventListener('click',()=>{

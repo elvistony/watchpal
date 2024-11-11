@@ -20,7 +20,14 @@
         <button class="start-button" id="ready-button">Ready</button>
     </div>
     <video src="../assets/video/wait.mp4" loop="true" class="video-background" id="video-player" >   </video>
-
+    <div class="remote-card hide" id="remote-card">
+        <div id="qrcode" class="qrcode"></div>
+        <div class="remote-caption">
+            <h3>Are you the admin?</h3>
+            <h5>Scan the QR Code or Open the Link to send the stream!</h5>
+            <h4 class="remote-link" id="remote-link">https://elvistony.dev/watchpal/remote/#/0000000</h4>
+        </div>
+    </div>
     <div class="controls-overlay" id="controlsOverlay">
         <div class="pos-abs video-title">
             <h5 id="video-desc">Waiting for Admin</h5>
@@ -52,6 +59,9 @@
                 <!-- <button class="control-button control-button-mini" is="google-cast-button"  id="volume-control">
                     <i class="fas fa-qrcode"></i>
                 </button> -->
+                <button class="control-button control-button-mini"  id="remote-qr">
+                    <i class="fas fa-gamepad"></i>
+                </button>
                 <button class="control-button control-button-mini enabled"  id="timestops-enabled">
                     <i class="fas fa-clock"></i>
                     <i class="fas fa-pause-circle"></i>
@@ -68,6 +78,7 @@
             </div>
         </div>
     </div>
+
 <script src="../assets/js/flixplayer.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.4/dist/sweetalert2.all.min.js"></script>
 <!-- <script src="../bundle.js"></script> -->
@@ -75,6 +86,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
 <script src="../assets/js/subtitles.js"></script>
+<script src="../assets/js/qrcode.js"></script>
 <script src="../assets/js/watchpal.js"></script>
 
 

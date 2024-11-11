@@ -213,3 +213,48 @@ body {
     cursor: pointer;
     z-index: 100;
 }
+
+.remote-card{
+    position: absolute;
+    z-index: 10;
+    top: 10%;
+    left: 10%;
+    height: 80%;
+    width: 40%;
+    background: #ffffffd4;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.5s ease;
+}
+
+#qrcode{
+    width: 100%;
+    padding: 10%;
+    margin: auto;
+}
+
+#qrcode > img{
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+.remote-caption{
+    width: auto;
+    padding: 20px;
+    color: indigo;
+    text-align: center;
+}
+
+.remote-link{
+    color: darkred;
+    overflow-wrap: anywhere;
+    font-family: monospace;
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    margin-top: 10px;
+    
+}

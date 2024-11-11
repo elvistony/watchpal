@@ -9,7 +9,10 @@ const fullscreenBtn = document.getElementById('fullscreenBtn');
 const fullscreenIcon = document.getElementById('fullscreenIcon');
 const rewindBtn = document.getElementById('seek-rewind');
 const forwardBtn = document.getElementById('seek-forward');
+const remoteQR = document.getElementById('remote-qr');
+const remoteCard = document.getElementById('remote-card');
 let hideControlsTimeout;
+let roomURLCode;
 
 // Play/Pause functionality
 // playPauseBtn.addEventListener('click', () => {
@@ -118,12 +121,20 @@ document.querySelector('.start-button').addEventListener('click',()=>{
         fullscreenIcon.classList.remove('fa-expand');
         fullscreenIcon.classList.add('fa-compress');
     }
+    roomURLCode = "https://elvistony.dev/watchpal/remote/"+document.location.hash;
+    new QRCode(document.getElementById("qrcode"), roomURLCode);
 })
 
 video.addEventListener('timeupdate', () => {
     // Get the video duration in seconds
     progressBarUpdate()
 });
+
+remoteQR.addEventListener('click',()=>{
+    remoteCard.classList.toggle('hide')
+    
+    document.getElementById('remote-link').innerHTML = roomURLCode;
+})
 
 function progressBarUpdate(){
     const videoDuration = video.duration;
